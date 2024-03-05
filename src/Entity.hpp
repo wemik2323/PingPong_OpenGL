@@ -13,23 +13,24 @@ class Entity {
    public:
     float x;
     float y;
-    float width; //Normalized
-    float height; //Normalized
+    float width;   // Normalized
+    float height;  // Normalized
     unsigned int VAO;
     Shader shader;
     float vertex[];
 
     Entity(float xCoord, float yCoord, float width, float height, Shader shader)
-        : x{xCoord}, y{yCoord}, width{width}, height{height}, shader{shader}
-    {
+        : x{xCoord}, y{yCoord}, width{width}, height{height}, shader{shader} {
+        // clang-format off
         float vertex[] = {
-            x - (width) / 2, y + (height) / 2,
-            x - (width) / 2, y - (height) / 2,
-            x + (width) / 2, y - (height) / 2,
-            x + (width) / 2, y - (height) / 2,
-            x + (width) / 2, y + (height) / 2,
-            x - (width) / 2, y + (height) / 2,
+            x - width / 2, y + height / 2,
+            x - width / 2, y - height / 2,
+            x + width / 2, y - height / 2,
+            x + width / 2, y - height / 2,
+            x + width / 2, y + height / 2,
+            x - width / 2, y + height / 2,
         };
+        // clang-format on
 
         glGenVertexArrays(1, &VAO);
         glBindVertexArray(VAO);
@@ -44,7 +45,6 @@ class Entity {
     }
 
     void draw() {
-        shader.use();
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 6);
     }
